@@ -45,7 +45,7 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
     if not isdir(bzr_dir):
         logger.update(
             "Creating BZR repo",
-            bzr('init_repo', bzr_dir).stderr
+            bzr('init-repo', bzr_dir).stderr
         )
 
     # Update the BZR repo with commits from git
