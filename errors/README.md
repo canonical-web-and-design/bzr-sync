@@ -1,0 +1,1 @@
+Where error emails will be stored

@@ -1,0 +1,1 @@
+This is where scripts will keep their repositories. The idea is for these repositories to be persistent - if they get re-created, the scripts will no longer be able to `bzr push` effectively.
