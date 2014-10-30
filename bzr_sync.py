@@ -49,7 +49,7 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
 
     logger.update(
         "Creating BZR repo",
-        bzr('init-repo', bzr_dir).stderr
+        bzr('init-repo', bzr_dir)
     )
 
     # Update the BZR repo with commits from git
@@ -59,12 +59,12 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
         bzr(
             git('-C', git_dir, 'fast-export', M=True, all=True),
             'fast-import', '-'
-        ).stderr
+        )
     )
 
     logger.update(
         "Pushing BZR changes",
-        bzr.push(bzr_url, overwrite=True, directory='trunk').stderr
+        bzr.push(bzr_url, overwrite=True, directory='trunk')
     )
 
     return logger.log
