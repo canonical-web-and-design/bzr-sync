@@ -1,6 +1,6 @@
 from os.path import isdir, join
 
-from sh import bzr, cd, git
+from sh import bzr, cd, git, rm
 
 from wsgi_helpers import Logger
 
@@ -41,12 +41,13 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
             git('-C', git_dir, 'pull')
         )
 
-    # Create the bzr repo if it doesn't exist
-    if not isdir(bzr_dir):
-        logger.update(
-            "Creating BZR repo",
-            bzr('init-repo', bzr_dir).stderr
-        )
+    # Always delete and recreate the bzr repo
+    rm(bzr_dir, r=True)
+
+    logger.update(
+        "Creating BZR repo",
+        bzr('init-repo', bzr_dir).stderr
+    )
 
     # Update the BZR repo with commits from git
     cd(bzr_dir)
@@ -60,7 +61,7 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
 
     logger.update(
         "Pushing BZR changes",
-        bzr.push(bzr_url, directory='trunk').stderr
+        bzr.push(bzr_url, overwrite=True, directory='trunk').stderr
     )
 
     return logger.log
