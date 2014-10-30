@@ -42,7 +42,10 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
         )
 
     # Always delete and recreate the bzr repo
-    rm(bzr_dir, r=True)
+    logger.update(
+        "Removing bzr dir {0}".format(bzr_dir),
+        rm(bzr_dir, r=True)
+    )
 
     logger.update(
         "Creating BZR repo",
