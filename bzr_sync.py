@@ -57,7 +57,7 @@ def sync_git_to_bzr(
             bzr('init-repo', bzr_dir)
         )
     except ErrorReturnCode, sh_error:
-        logger.update('init-repo returned error code {0}. Message: {1}'.update(
+        logger.update('init-repo returned error code {0}. Message: {1}'.format(
             str(sh_error.exit_code), sh_error.message
         ))
 
