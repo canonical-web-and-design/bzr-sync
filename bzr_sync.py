@@ -47,13 +47,17 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
         rm(bzr_dir, r=True, f=True)
     )
 
-    logger.update(
-        "Creating BZR repo",
+    logger.update("Creating BZR repo")
+
+    try:
         bzr('init-repo', bzr_dir)
-    )
+    except:
+        logger.update('init-repo returned an error state - ignoring')
+
 
     # Update the BZR repo with commits from git
     cd(bzr_dir)
+
     logger.update(
         "Updating BZR repo",
         bzr(
