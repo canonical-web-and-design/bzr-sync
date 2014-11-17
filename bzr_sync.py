@@ -25,7 +25,7 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
     git_dir = join(repositories_dir, project_name + '-git')
     bzr_dir = join(repositories_dir, project_name + '-bzr')
     git_url = 'git@github.com:{0}/{1}.git'.format(git_user, project_name)
-    bzr_url = 'lp:{0}'.format(project_name)
+    bzr_url = 'lp:~bzr-sync/{0}/trunk'.format(project_name)
 
     logger = Logger()
 
@@ -44,7 +44,7 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
     # Always delete and recreate the bzr repo
     logger.update(
         "Removing bzr dir {0}".format(bzr_dir),
-        rm(bzr_dir, r=True)
+        rm(bzr_dir, r=True, f=True)
     )
 
     logger.update(
