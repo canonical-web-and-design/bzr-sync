@@ -14,4 +14,3 @@ sync_git_to_bzr(
     git_user=sys.argv[2],
     repositories_dir=join(base_dir, 'repositories')
 )
-

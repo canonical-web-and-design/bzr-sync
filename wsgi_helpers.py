@@ -1,16 +1,16 @@
 import re
 
 
-class Logger:
+class ShLogger:
     log = ''
 
-    def update(self, explanation, command_output=None):
-        self._log("=== {0} ===\n".format(explanation))
+    def update_for_command(self, explanation, command_output=None):
+        self.update("=== {0} ===\n".format(explanation))
 
         if command_output:
-            self._log(str(command_output) + "\n")
+            self.update(str(command_output) + "\n")
 
-    def _log(self, message):
+    def update(self, message):
         print message
         self.log += message
 
