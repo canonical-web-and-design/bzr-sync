@@ -5,7 +5,11 @@ from sh import bzr, cd, git, rm, ErrorReturnCode
 from wsgi_helpers import ShLogger
 
 
-def sync_git_to_bzr(project_name, git_user, repositories_dir):
+def sync_git_to_bzr(
+    project_name, launchpad_project_name,
+    github_user, launchpad_user,
+    repositories_dir
+):
     """
     Using the provided {repositories_dir},
     pull down the git project from github
@@ -24,8 +28,8 @@ def sync_git_to_bzr(project_name, git_user, repositories_dir):
 
     git_dir = join(repositories_dir, project_name + '-git')
     bzr_dir = join(repositories_dir, project_name + '-bzr')
-    git_url = 'git@github.com:{0}/{1}.git'.format(git_user, project_name)
-    bzr_url = 'lp:~bzr-sync/{0}/trunk'.format(project_name)
+    git_url = 'git@github.com:{0}/{1}.git'.format(github_user, project_name)
+    bzr_url = 'lp:~{0}/{1}/trunk'.format(launchpad_user, launchpad_project_name)
 
     logger = ShLogger()
 

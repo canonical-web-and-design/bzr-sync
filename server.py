@@ -12,7 +12,8 @@ from error_handlers import email_sh_error
 
 # Options
 auth_token = 'AUTH-TOKEN'
-git_user = 'GIT-USER-ACCOUNT'
+github_user = 'GIT-USER-ACCOUNT'
+launchpad_user = 'BZR-USER-ACCOUNT'
 error_email_recipient = 'YOUR_EMAIL'
 error_email_sender = 'SENDING_EMAIL'
 
@@ -27,14 +28,17 @@ def application(environ, start_response):
     params = query_params(environ)
 
     token = params.get('token', '')
-    project_name = params.get('project', '')
+    project_name = params.get['project']
+    launchpad_project_name = params.get('launchpad-project', project_name)
 
     if token == auth_token:
         if project_name:
             try:
                 output = sync_git_to_bzr(
-                    project_name=params['project'],
-                    git_user=git_user,
+                    project_name=project_name,
+                    launchpad_project_name=launchpad_project_name,
+                    github_user=github_user,
+                    launchpad_user=launchpad_user,
                     repositories_dir=join(base_dir, 'repositories')
                 )
             except ErrorReturnCode as error:
