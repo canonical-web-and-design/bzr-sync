@@ -28,7 +28,7 @@ def application(environ, start_response):
     params = query_params(environ)
 
     token = params.get('token', '')
-    branch = params.get('branch', 'trunk')
+    launchpad_branch = params.get('launchpad_h', 'trunk')
     project_name = params.get['project']
     launchpad_project_name = params.get('launchpad-project', project_name)
 
@@ -41,7 +41,7 @@ def application(environ, start_response):
                     github_user=github_user,
                     launchpad_user=launchpad_user,
                     repositories_dir=join(base_dir, 'repositories'),
-                    branch=branch
+                    launchpad_branch=launchpad_branch
                 )
             except ErrorReturnCode as error:
                 email_sh_error(
