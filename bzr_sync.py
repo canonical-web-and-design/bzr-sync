@@ -8,7 +8,8 @@ from wsgi_helpers import ShLogger
 def sync_git_to_bzr(
     project_name, launchpad_project_name,
     github_user, launchpad_user,
-    repositories_dir
+    repositories_dir,
+    branch="trunk"
 ):
     """
     Using the provided {repositories_dir},
@@ -29,7 +30,7 @@ def sync_git_to_bzr(
     git_dir = join(repositories_dir, project_name + '-git')
     bzr_dir = join(repositories_dir, project_name + '-bzr')
     git_url = 'git@github.com:{0}/{1}.git'.format(github_user, project_name)
-    bzr_url = 'lp:~{0}/{1}/trunk'.format(launchpad_user, launchpad_project_name)
+    bzr_url = 'lp:~{0}/{1}/{2}'.format(launchpad_user, launchpad_project_name, branch)
 
     logger = ShLogger()
 
@@ -77,7 +78,7 @@ def sync_git_to_bzr(
 
     logger.update_for_command(
         "Pushing BZR changes",
-        bzr.push(bzr_url, overwrite=True, directory='trunk')
+        bzr.push(bzr_url, overwrite=True, directory=branch)
     )
 
     return logger.log
