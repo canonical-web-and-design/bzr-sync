@@ -1,4 +1,4 @@
-from os.path import isdir, join
+from os.path import isdir, join, abspath, dirname
 
 from sh import bzr, cd, git, rm, ErrorReturnCode
 
@@ -6,29 +6,19 @@ from wsgi_helpers import ShLogger
 
 
 def sync_git_to_bzr(
-    project_name,
-    github_user,
-    repositories_dir,
-    bzr_url):
+    git_url,
+    bzr_url,
+    repositories_dir=join(dirname(abspath(__file__)), 'repositories'),
+):
     """
     Using the provided {repositories_dir},
-    pull down the git project from github
-    (git@github.com:{git_user}/{project_name}.git),
+    pull down the git project from a git host (git_url),
     export all commits to a bzr repository,
-    and push to launchpad at lp:{project_name}.
-
-    If the launchpad repo already exists, this will fail the first time
-    because the history will be entirely different from the existing history.
-    Therefore, after running this the first time and getting an error,
-    `cd {project_name}-bzr/` and run `bzr push --overwrite`.
-
-    From then on, every subsequent time you run this, for the same
-    repository directory, it should work fine.
+    and push to a bzr host (bzr_url).
     """
 
-    git_dir = join(repositories_dir, project_name + '-git')
-    bzr_dir = join(repositories_dir, project_name + '-bzr')
-    git_url = 'git@github.com:{0}/{1}.git'.format(github_user, project_name)
+    git_dir = git_url.replace('/', '-')
+    bzr_dir = bzr_url.replace('/', '-')
 
     logger = ShLogger()
 
@@ -40,7 +30,7 @@ def sync_git_to_bzr(
         )
     else:
         logger.update_for_command(
-            "Pulling {0} changes".format(project_name),
+            "Pulling {0} changes".format(git_url),
             git('-C', git_dir, 'pull')
         )
 
