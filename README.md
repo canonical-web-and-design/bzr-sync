@@ -29,7 +29,7 @@ Serving on port 9052...
 And then trigger the script to sync github projects to launchpad  by visiting:
 
 ```
-http://0.0.0.0:9052/?token={auth-token};project={your-project}
+http://0.0.0.0:9052/?token={auth-token}&git_url={git-ssh-url}&bzr_url={bzr-host-url}
 ```
 
 This will attempt to synchronise `git@github.com:{git_user}/{your-project}` to `lp:{your-project}`.
@@ -44,3 +44,5 @@ Gunicorn is a fully-fledged HTTP server. If you want to use Gunicorn instead of 
 ``` bash
 gunicorn -b 0.0.0.0:9052 wsgi:application
 ```
+
+NB: You should really serve the app over HTTPS by providing the `--keyfile` and `--certfile` options to `gunicorn` - this will keep your `{auth-token}` secure.
