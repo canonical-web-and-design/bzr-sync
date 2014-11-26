@@ -36,7 +36,10 @@ def application(environ, start_response):
                     email_dir=join(dirname(abspath(__file__)), 'errors'),
                     sender_email=error_email_sender,
                     recipient_emails=error_email_recipients,
-                    subject="BZR Sync error with {0}".format(params['project'])
+                    subject="BZR Sync error syncing {0} to {1}".format(
+                        git_url,
+                        bzr_url
+                    )
                 )
                 raise error
         else:
