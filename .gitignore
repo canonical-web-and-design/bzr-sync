@@ -1,3 +1,4 @@
 repositories/*
 errors/*
 *.pyc
+/settings.py
