@@ -3,7 +3,10 @@ from datetime import datetime
 from sh import cat, sendmail
 
 
-def email_sh_error(sh_error, email_dir, sender_email, recipient_email, subject):
+def email_sh_error(
+    sh_error, email_dir, sender_email,
+    recipient_emails, subject
+):
     """
     Takes an sh.ErrorReturnCode error
     and sends an email (using sendmail) with its contents
@@ -26,4 +29,4 @@ def email_sh_error(sh_error, email_dir, sender_email, recipient_email, subject):
         email_file.write('stdout: {0}\n'.format(sh_error.stdout))
         email_file.write('stderr: {0}\n'.format(sh_error.stderr))
 
-    sendmail(cat(email_filepath), recipient_email)
+    sendmail(cat(email_filepath), recipient_emails)

@@ -6,14 +6,15 @@ A light python script and WSGI server application for synchronizing github proje
 Setup
 ---
 
-You should set the settings at the top of `server.py`:
+You create a settings file at `settings.py` containing:
 
 ``` bash
 auth_token = '{a-long-random-string}'
-git_user = '{the-github-account}'
-error_email_recipient = '{your-email-address}'
+error_email_recipients = '{comma-separated-email-addresses}'
 error_email_sender = '{whatever-you-like}'
 ```
+
+Example settings are contained in [example.settings.py](example.settings.py).
 
 Usage
 ---
