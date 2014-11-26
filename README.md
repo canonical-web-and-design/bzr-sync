@@ -35,3 +35,12 @@ http://0.0.0.0:9052/?token={auth-token};project={your-project}
 This will attempt to synchronise `git@github.com:{git_user}/{your-project}` to `lp:{your-project}`.
 
 NB: The user that runs the server must have permission to access both the github and launchpad repositories.
+
+Serving with gunicorn
+---
+
+Gunicorn is a fully-fledged HTTP server. If you want to use Gunicorn instead of pure WSGI:
+
+``` bash
+gunicorn -b 0.0.0.0:9052 wsgi:application
+```
