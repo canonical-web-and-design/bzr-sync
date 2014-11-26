@@ -28,20 +28,17 @@ def application(environ, start_response):
     params = query_params(environ)
 
     token = params.get('token', '')
-    launchpad_branch = params.get('launchpad_h', 'trunk')
+    bzr_url = params.get('bzr_url')
     project_name = params.get['project']
-    launchpad_project_name = params.get('launchpad-project', project_name)
 
     if token == auth_token:
-        if project_name:
+        if bzr_url:
             try:
                 output = sync_git_to_bzr(
                     project_name=project_name,
-                    launchpad_project_name=launchpad_project_name,
                     github_user=github_user,
-                    launchpad_user=launchpad_user,
                     repositories_dir=join(base_dir, 'repositories'),
-                    launchpad_branch=launchpad_branch
+                    bzr_url=bzr_url
                 )
             except ErrorReturnCode as error:
                 email_sh_error(
