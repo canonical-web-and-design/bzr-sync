@@ -50,6 +50,7 @@ def application(environ, start_response):
 
     return [output]
 
-httpd = make_server('', 9052, application)
-print "Serving on port 9052..."
-httpd.serve_forever()
+if __name__ == "__main__":
+    httpd = make_server('', 9052, application)
+    print "Serving on port 9052..."
+    httpd.serve_forever()
