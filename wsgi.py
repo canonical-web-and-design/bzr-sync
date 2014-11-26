@@ -4,6 +4,7 @@ from os.path import abspath, dirname, join
 # Modules
 from wsgiref.simple_server import make_server
 from sh import ErrorReturnCode
+from urllib import unquote
 
 # Local
 from wsgi_helpers import query_params
@@ -19,9 +20,9 @@ def application(environ, start_response):
 
     params = query_params(environ)
 
-    token = params.get('token', '')
-    bzr_url = params.get('bzr_url')
-    git_url = params.get('git_url')
+    token = unquote(params.get('token', ''))
+    bzr_url = unquote(params.get('bzr_url'))
+    git_url = unquote(params.get('git_url'))
 
     if token == auth_token:
         if bzr_url:
