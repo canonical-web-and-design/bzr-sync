@@ -21,8 +21,8 @@ def application(environ, start_response):
     params = query_params(environ)
 
     token = unquote(params.get('token', ''))
-    bzr_url = unquote(params.get('bzr_url'))
-    git_url = unquote(params.get('git_url'))
+    bzr_url = unquote(params.get('bzr_url', ''))
+    git_url = unquote(params.get('git_url', ''))
 
     if token == auth_token:
         if bzr_url:
