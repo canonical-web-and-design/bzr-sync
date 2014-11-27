@@ -28,7 +28,7 @@ def sync_git_to_bzr(
     if not isdir(git_path):
         logger.update_for_command(
             "Cloning " + git_url,
-            git.clone(git_url, git_dir)
+            git.clone(git_url, git_path)
         )
     else:
         cd(git_path)
