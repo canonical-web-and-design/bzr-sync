@@ -22,7 +22,7 @@ Usage
 You can run the simple WSGI server:
 
 ``` bash
-$ python server
+$ python wsgi.py
 Serving on port 9052...
 ```
 
