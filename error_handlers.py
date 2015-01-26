@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from sh import cat, sendmail
-
+import sh
 
 def email_sh_error(
     sh_error, email_dir, sender_email,
@@ -29,4 +28,4 @@ def email_sh_error(
         email_file.write('stdout: {0}\n'.format(sh_error.stdout))
         email_file.write('stderr: {0}\n'.format(sh_error.stderr))
 
-    sendmail(cat(email_filepath), recipient_emails)
+    sh.sendmail(sh.cat(email_filepath), recipient_emails)
