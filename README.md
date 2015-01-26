@@ -44,10 +44,11 @@ NB: The user that runs the server must have permission to access both the github
 
 ### Serving with gunicorn
 
-Gunicorn is a fully-fledged HTTP server. If you want to use Gunicorn instead of pure WSGI:
+Gunicorn is a fully-fledged HTTP server. For any serious use, you probably want to run this service using `gunicorn`
+ or a similar server.
+
+*NB:* For non-local usage you should serve the app over HTTPS by providing the `--keyfile` and `--certfile` options to `gunicorn` - this will keep your `{auth-token}` secure.
 
 ``` bash
-gunicorn -b 0.0.0.0:9052 wsgi:application
+gunicorn --keyfile {path-to-keyfile} --certfile {path-to-certfile} -b 0.0.0.0:{port} wsgi:application
 ```
-
-NB: You should really serve the app over HTTPS by providing the `--keyfile` and `--certfile` options to `gunicorn` - this will keep your `{auth-token}` secure.
