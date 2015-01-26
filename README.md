@@ -22,6 +22,12 @@ auth_token = '{a-long-random-string}'
 
 You then need to make sure the user who will be running this project has read access to any Github and write access to any Launchpad projects which you want to synchronise.
 
+To make sure the user is setup with the correct configs and permissions to smoothly access Github and Launchpad without any user input, try doing the following manually before continuing:
+
+- `git clone` a repository which you will want to sync
+- `bzr branch` a repository which you will want to sync
+- `bzr push :parent` from the `branch`ed repository, to make sure you can update repositories properly
+
 Usage
 ---
 
