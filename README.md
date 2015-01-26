@@ -1,20 +1,26 @@
 Bazaar Sync
 ===
 
-A light python script and WSGI server application for synchronizing github projects (in git) to launchpad (in bzr).
+A light python script and WSGI server application for synchronizing [Github](https://github.com) projects (in [Git](http://git-scm.com)) to [Launchpad](https://launchpad.net) (in [Bazaar](http://bazaar.canonical.com/en/)).
 
 Setup
 ---
 
-You create a settings file at `settings.py` containing:
+Once you've [cloned this repository](http://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#Cloning-an-Existing-Repository), do the following:
+
+``` bash
+sudo apt install python-pip         # Install python and pip
+pip install -r requirements.txt     # Install python dependencies
+cp example-settings.py settings.py  # Create your settings file
+```
+
+Now customise `settings.py` with an auth-token, perhaps generated with `uuidgen`:
 
 ``` bash
 auth_token = '{a-long-random-string}'
-error_email_recipients = '{comma-separated-email-addresses}'
-error_email_sender = '{whatever-you-like}'
 ```
 
-Example settings are contained in [example.settings.py](example.settings.py).
+You then need to make sure the user who will be running this project has read access to any Github and write access to any Launchpad projects which you want to synchronise.
 
 Usage
 ---
@@ -36,8 +42,7 @@ This will attempt to synchronise `{git_user}` (e.g. `git@github.com/username/rep
 
 NB: The user that runs the server must have permission to access both the github and launchpad repositories.
 
-Serving with gunicorn
----
+### Serving with gunicorn
 
 Gunicorn is a fully-fledged HTTP server. If you want to use Gunicorn instead of pure WSGI:
 
